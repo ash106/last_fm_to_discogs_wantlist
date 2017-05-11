@@ -6,23 +6,25 @@
       <% @top_albums.each do |album| %>
         <h3><%= album["name"] %> - <%= album["artist"]["name"] %></h3>
         <div class="card-columns">
+          <% if @discogs_results[album["name"]] %>
           <% @discogs_results[album["name"]].each do |result| %>
-            <% card_color = result.format.include?("Vinyl") || result.format.include?("Cassette") ? "card-success" : "card-warning" %>
-            <% card_color = "card-danger" if result.format.include?("File") %>
+            <% card_color = result.major_formats.include?("Vinyl") || result.major_formats.include?("Cassette") ? "card-success" : "card-warning" %>
+            <% card_color = "card-danger" if result.major_formats.include?("File") %>
             <div class="card card-inverse <%= card_color %>">
               <%= image_tag result.thumb, class: "card-img-top" %>
               <div class="card-block">
-                <h4 class="card-title"><%= result.title.split('-')[1] %></h4>
-                <h4 class="card-title"><%= result.title.split('-')[0] %></h4>
-                <p class="card-text"><%= link_to result.format.join(', '), "https://www.discogs.com" + result.uri %></p>
-                <p class="card-text"><%= "#{result.year} #{result.country}" %></p>
+                <h4 class="card-title"><%= result.format %></h4>
+                <!-- <p class="card-text"><%#= link_to result.format, "https://www.discogs.com" %></p> -->
+                <p class="card-text"><%= "#{result.released.split('-')[0]} #{result.country}" %></p>
+                <p class="card-text"><%= result.label %></p>
                 <p class="card-text">
-                  <%= link_to "https://www.discogs.com" + result.uri do %>
+                  <%= link_to "https://www.discogs.com" do %>
                     <i class="fa fa-2x fa-plus-circle" aria-hidden="true"></i>
                   <% end %>
                 </p>
               </div>
             </div>
+          <% end %>
           <% end %>
         </div>
       <% end %>

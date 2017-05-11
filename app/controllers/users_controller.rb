@@ -11,9 +11,18 @@ class UsersController < ApplicationController
     @top_albums.each do |album|
       @discogs_results[album["name"]] = Rails.cache.fetch("#{album["name"]}_#{album["artist"]["name"]}", expires_in: 20.minutes) do
         search = auth_wrapper.search("#{album["name"]} #{album["artist"]["name"]}", per_page: 20, type: :release)
-        search.results
+        release_search = auth_wrapper.get_release(search.results.first.id)
+        if (release_search.master_id)
+          master_release_search = auth_wrapper.get_master_release_versions(release_search.master_id)
+          master_release_search.versions
+        else
+          release_search["major_formats"] = [release_search.formats[0].name]
+          release_search["format"] = release_search.formats[0].name
+          release_search["label"] = release_search.labels[0].name
+          [release_search]
+        end
+        # byebug if album["name"] == "In Summer"
       end 
     end
-    # byebug
   end
 end
