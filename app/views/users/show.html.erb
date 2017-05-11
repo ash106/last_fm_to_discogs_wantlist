@@ -1,0 +1,6 @@
+<h1>Top Albums for <%= @username %></h1>
+
+<% @top_albums.each do |album| %>
+  <p><%= album["name"] %> - <%= album["artist"]["name"] %></p>
+<% end %>
+  
