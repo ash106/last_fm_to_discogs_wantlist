@@ -14,5 +14,6 @@ class UsersController < ApplicationController
         search.results
       end 
     end
+    # byebug
   end
 end
