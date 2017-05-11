@@ -63,3 +63,4 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
 end
 gem 'jquery-rails'
+gem 'font-awesome-sass'

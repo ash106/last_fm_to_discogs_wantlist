@@ -14,8 +14,13 @@
               <div class="card-block">
                 <h4 class="card-title"><%= result.title.split('-')[1] %></h4>
                 <h4 class="card-title"><%= result.title.split('-')[0] %></h4>
-                <p class="card-text"><%= link_to result.format, "https://www.discogs.com" + result.uri %></p>
-                <p class="card-text"><%= result.country %></p>
+                <p class="card-text"><%= link_to result.format.join(', '), "https://www.discogs.com" + result.uri %></p>
+                <p class="card-text"><%= "#{result.year} #{result.country}" %></p>
+                <p class="card-text">
+                  <%= link_to "https://www.discogs.com" + result.uri do %>
+                    <i class="fa fa-2x fa-plus-circle" aria-hidden="true"></i>
+                  <% end %>
+                </p>
               </div>
             </div>
           <% end %>
