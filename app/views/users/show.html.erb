@@ -10,7 +10,8 @@
         <div class="card card-inverse <%= card_color %>" style="width: 20rem;">
           <%= image_tag result.thumb, class: "card-img-top" %>
           <div class="card-block">
-            <h4 class="card-title"><%= result.title %></h4>
+            <h4 class="card-title"><%= result.title.split('-')[1] %></h4>
+            <h4 class="card-title"><%= result.title.split('-')[0] %></h4>
             <p class="card-text"><%= result.format %></p>
           </div>
         </div>
